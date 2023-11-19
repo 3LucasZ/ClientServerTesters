@@ -1,7 +1,9 @@
 {
   "name": "WebSocket Client",
   "short_name": "WSS Client",
-  "start_url": "index.html",
+  "description": "WSS Client",
+  "scope": "/ClientServerTesters/",
+  "start_url": "/ClientServerTesters/",
   "display": "standalone",
   "background_color": "#fdfdfd",
   "theme_color": "#db4938",

@@ -2,7 +2,8 @@
 
 <head>
   <title>WebSocket Client</title>
-  <link rel="manifest" href="manifest.json" />
+  <link rel="canonical" href="https://3lucasz.github.io/ClientServerTesters/" />
+  <link rel="manifest" href="/ClientServerTesters/manifest.json" />
   <link rel="apple-touch-icon" href="images/icons/icon-256x256.png" />
   <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
   <meta name="theme-color" content="db4938" />
@@ -50,7 +51,9 @@
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
       navigator.serviceWorker
-        .register("/serviceWorker.js")
+        .register("/ClientServerTesters/serviceWorker.js", {
+          scope: "/ClientServerTesters/",
+        })
         .then((res) => console.log("service worker registered"))
         .catch((err) => console.log("service worker not registered", err));
     });

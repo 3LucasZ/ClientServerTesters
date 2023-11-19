@@ -1,5 +1,6 @@
 const staticPage = "page-v1";
-const assets = ["/", "/index.html"];
+const GHPATH = "/ClientServerTesters";
+const assets = [GHPATH + "/", GHPATH + "/index.html"];
 
 self.addEventListener("install", (installEvent) => {
   installEvent.waitUntil(
