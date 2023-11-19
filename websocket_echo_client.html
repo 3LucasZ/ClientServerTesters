@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<head>
+  <title>WebSocket Echo Client</title>
+</head>
+
+<body>
+  <h1>WebSocket Echo Client</h1>
+  <input type="text" name="url" id="url" value="wss://192.168.4.1/ws" />
+  <button onclick="_test()">test</button>
+  <button onclick="_clear()">clear</button>
+  <div id="log"></div>
+</body>
+
+<script language="javascript" type="text/javascript">
+  var log = document.getElementById("log");
+  var url = document.getElementById("url");
+
+  function _test() {
+    writeLog("start test to: " + url.value);
+    testWebSocket();
+  }
+  function _clear() {
+    writeLog("clearing...");
+    log.innerHTML = "";
+  }
+
+  function testWebSocket() {
+    websocket = new WebSocket(url.value);
+    websocket.onopen = function (evt) {
+      onOpen(evt);
+    };
+    websocket.onclose = function (evt) {
+      onClose(evt);
+    };
+    websocket.onmessage = function (evt) {
+      onMessage(evt);
+    };
+    websocket.onerror = function (evt) {
+      onError(evt);
+    };
+  }
+
+  function onOpen(evt) {
+    writeLog("CONNECTED");
+    sendMessage("Hello world");
+  }
+
+  function onClose(evt) {
+    writeLog("Websocket DISCONNECTED");
+  }
+
+  function onMessage(evt) {
+    writeLog('<span style="color: blue;">RESPONSE: ' + evt.data + "</span>");
+    websocket.close();
+  }
+
+  function onError(evt) {
+    writeLog('<span style="color: red;">ERROR:</span> ' + evt.data);
+  }
+
+  function sendMessage(message) {
+    writeLog("SENT: " + message);
+    websocket.send(message);
+  }
+
+  function writeLog(message) {
+    var pre = document.createElement("p");
+    pre.innerHTML = message;
+    log.appendChild(pre);
+  }
+</script>
