@@ -49,8 +49,16 @@
 </body>
 
 <script language="javascript" type="text/javascript">
+  var urlDiv = document.getElementById("url");
+  var pktDiv = document.getElementById("pkt");
+  var sentDiv = document.getElementById("sent");
+  var receivedDiv = document.getElementById("received");
+  var logsDiv = document.getElementById("logs");
+
   if (window.matchMedia("(display-mode: standalone)").matches) {
-    log("This is running as standalone.", logsDiv);
+    log("This is running as a PWA.", logsDiv);
+  } else {
+    log("This is running as a website", logsDiv);
   }
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
@@ -63,11 +71,6 @@
     });
   }
 
-  var urlDiv = document.getElementById("url");
-  var pktDiv = document.getElementById("pkt");
-  var sentDiv = document.getElementById("sent");
-  var receivedDiv = document.getElementById("received");
-  var logsDiv = document.getElementById("logs");
   var websocket;
 
   function _connect() {
