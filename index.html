@@ -49,6 +49,9 @@
 </body>
 
 <script language="javascript" type="text/javascript">
+  if (window.matchMedia("(display-mode: standalone)").matches) {
+    log("This is running as standalone.", logsDiv);
+  }
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
       navigator.serviceWorker
