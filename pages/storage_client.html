@@ -41,8 +41,9 @@
   </div>
   <div>
     <h3>File Input</h3>
-    <input id="raw_file" type="file" />
+    <input id="file2_in" type="file" />
     <button onclick="file_inspect()">Inspect File</button>
+    <p id="file2_out">Empty</p>
   </div>
 </body>
 
@@ -80,8 +81,13 @@
     };
   }
   ////////////////////////////////
-  var raw_file = document.getElementById("raw_file");
+  var file2_in = document.getElementById("file2_in");
+  var file2_out = document.getElementById("file2_out");
   function file_inspect() {
-    console.log(raw_file.value);
+    var reader = new FileReader();
+    reader.readAsText(file2_in.files[0], "UTF-8");
+    reader.onload = function (evt) {
+      file2_out.innerHTML = evt.target.result;
+    };
   }
 </script>
