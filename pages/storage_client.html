@@ -26,12 +26,19 @@
     </li>
   </div>
   <div>
+    <h3>Local Storage</h3>
     <input type="text" name="ls_in" id="ls_in" value="hello world" />
     <button onclick="ls_post()">LS POST</button>
     <p id="ls_out">Empty</p>
     <button onclick="ls_get()">LS GET</button>
   </div>
-  <div></div>
+  <div>
+    <h3>File System</h3>
+    <input type="text" name="file_in" id="file_in" value="hello world" />
+    <button onclick="file_post()">FILE POST</button>
+    <p id="file_out">Empty</p>
+    <button onclick="file_get()">FILE GET</button>
+  </div>
 </body>
 
 <script language="javascript" type="text/javascript">
@@ -43,5 +50,27 @@
   }
   function ls_get() {
     ls_out.innerHTML = localStorage.getItem("pkt");
+  }
+
+  var file_in = document.getElementById("file_in");
+  var file_out = document.getElementById("file_out");
+
+  async function file_post() {
+    // create a new handle
+    const newHandle = await window.showSaveFilePicker();
+    // create a FileSystemWritableFileStream to write to
+    const writableStream = await newHandle.createWritable();
+    // write our file
+    await writableStream.write(ls_in.value);
+    // close the file and write the contents to disk.
+    await writableStream.close();
+  }
+  async function file_get() {
+    // Open file picker and destructure the result the first handle
+    const [fileHandle] = await window.showOpenFilePicker();
+    // get file contents
+    const fileData = await fileHandle.getFile();
+    console.log(fileData);
+    ls_out.innerHTML = fileData;
   }
 </script>
