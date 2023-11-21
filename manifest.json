@@ -10,7 +10,7 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/images/icons/icon-256x256.png",
+      "src": "/ClientServerTesters/images/icons/icon-256x256.png",
       "type": "image/png",
       "sizes": "256x256"
     }
