@@ -1,4 +1,4 @@
-const cacheName = "v5";
+const cacheName = "v" + Math.floor(Math.random() * 1000000000);
 const GHPATH = "/ClientServerTesters";
 const assets = [
   GHPATH + "/",
