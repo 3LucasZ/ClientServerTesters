@@ -1,6 +1,11 @@
 const cacheName = "v3";
 const GHPATH = "/ClientServerTesters";
-const assets = [GHPATH + "/", GHPATH + "/index.html"];
+const assets = [
+  GHPATH + "/",
+  GHPATH + "/index.html",
+  GHPATH + "/websocket_client.html",
+  GHPATH + "/storage_client.html",
+];
 
 self.addEventListener("activate", (event) => {
   // Remove old caches
