@@ -27,14 +27,14 @@
   </div>
   <div>
     <h3>Local Storage</h3>
-    <input type="text" name="ls_in" id="ls_in" value="hello world" />
+    <input type="text" name="ls_in" id="ls_in" value="hello local storage" />
     <button onclick="ls_post()">LS POST</button>
     <p id="ls_out">Empty</p>
     <button onclick="ls_get()">LS GET</button>
   </div>
   <div>
     <h3>File System</h3>
-    <input type="text" name="file_in" id="file_in" value="hello world" />
+    <input type="text" name="file_in" id="file_in" value="hello file system" />
     <button onclick="file_post()">FILE POST</button>
     <p id="file_out">Empty</p>
     <button onclick="file_get()">FILE GET</button>
@@ -61,7 +61,7 @@
     // create a FileSystemWritableFileStream to write to
     const writableStream = await newHandle.createWritable();
     // write our file
-    await writableStream.write(ls_in.value);
+    await writableStream.write(file_in.value);
     // close the file and write the contents to disk.
     await writableStream.close();
   }
@@ -70,7 +70,10 @@
     const [fileHandle] = await window.showOpenFilePicker();
     // get file contents
     const fileData = await fileHandle.getFile();
-    console.log(fileData);
-    ls_out.innerHTML = fileData;
+    var reader = new FileReader();
+    reader.readAsText(fileData, "UTF-8");
+    reader.onload = function (evt) {
+      file_out.innerHTML = evt.target.result;
+    };
   }
 </script>
