@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<head>
+  <title>WebSocket Client</title>
+  <link rel="canonical" href="https://3lucasz.github.io/ClientServerTesters/" />
+  <link rel="manifest" href="/ClientServerTesters/manifest.json" />
+  <link rel="apple-touch-icon" href="images/icons/icon-256x256.png" />
+  <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+  <meta name="theme-color" content="db4938" />
+  <style>
+    .row {
+      display: flex;
+    }
+
+    .column {
+      flex: 33%;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>WebSocket Client</h1>
+  <div>
+    <input type="text" name="url" id="url" value="wss://192.168.4.1/ws" />
+    <button onclick="_connect()">Connect</button>
+    <button onclick="_disconnect()">Disconnect</button>
+  </div>
+  <div>
+    <input type="text" name="pkt" id="pkt" value="hello world" />
+    <button onclick="_send()">Send</button>
+    <button onclick="_clear()">Clear Logs</button>
+  </div>
+  <div><a href="https://192.168.4.1">https link</a></div>
+
+  <div class="row">
+    <div class="column">
+      <h2>Sent:</h2>
+      <div id="sent"></div>
+    </div>
+    <div class="column">
+      <h2>Received:</h2>
+      <div id="received"></div>
+    </div>
+    <div class="column">
+      <h2>Logs:</h2>
+      <div id="logs"></div>
+    </div>
+  </div>
+</body>
+
+<script language="javascript" type="text/javascript">
+  var urlDiv = document.getElementById("url");
+  var pktDiv = document.getElementById("pkt");
+  var sentDiv = document.getElementById("sent");
+  var receivedDiv = document.getElementById("received");
+  var logsDiv = document.getElementById("logs");
+
+  var websocket;
+
+  function _connect() {
+    log("Connecting to: " + url.value, logsDiv);
+    websocket = new WebSocket(url.value);
+    websocket.onopen = function (evt) {
+      onOpen(evt);
+    };
+    websocket.onclose = function (evt) {
+      onClose(evt);
+    };
+    websocket.onmessage = function (evt) {
+      onMessage(evt);
+    };
+    websocket.onerror = function (evt) {
+      onError(evt);
+    };
+  }
+
+  function _disconnect() {
+    log("Disconnecting from: " + url.value, logsDiv);
+    websocket.close();
+  }
+
+  function _send() {
+    pkt = pktDiv.value;
+    log(pkt, sentDiv);
+    websocket.send(pkt);
+  }
+
+  function _clear() {
+    sentDiv.innerHTML = "";
+    receivedDiv.innerHTML = "";
+    logsDiv.innerHTML = "";
+  }
+
+  function onOpen(evt) {
+    log("Websocket Connected", logsDiv);
+  }
+
+  function onClose(evt) {
+    log("Websocket Disconnected", logsDiv);
+  }
+
+  function onMessage(evt) {
+    log(evt.data, receivedDiv);
+  }
+
+  function onError(evt) {
+    log(evt.data, logsDiv);
+  }
+
+  function log(message, div) {
+    var pre = document.createElement("p");
+    pre.innerHTML = message;
+    div.appendChild(pre);
+  }
+</script>
