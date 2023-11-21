@@ -1,4 +1,4 @@
-const cacheName = "v" + Math.floor(Math.random() * 1000000000);
+const cacheName = "v" + Math.floor(Math.random() * 100000000000000);
 const GHPATH = "/ClientServerTesters";
 const assets = [
   GHPATH + "/",
@@ -23,6 +23,7 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("install", (installEvent) => {
+  console.log("Service Worker: Using new cache: " + cacheName);
   installEvent.waitUntil(
     caches.open(cacheName).then((cache) => {
       cache.addAll(assets);
