@@ -41,24 +41,23 @@
   </div>
   <div>
     <h3>File Input</h3>
-    <input type="file" />
+    <input id="raw_file" type="file" />
+    <button onclick="file_inspect()">Inspect File</button>
   </div>
 </body>
 
 <script language="javascript" type="text/javascript">
   var ls_in = document.getElementById("ls_in");
   var ls_out = document.getElementById("ls_out");
-
   function ls_post() {
     localStorage.setItem("pkt", ls_in.value);
   }
   function ls_get() {
     ls_out.innerHTML = localStorage.getItem("pkt");
   }
-
+  ////////////////////////////////
   var file_in = document.getElementById("file_in");
   var file_out = document.getElementById("file_out");
-
   async function file_post() {
     // create a new handle
     const newHandle = await window.showSaveFilePicker();
@@ -79,5 +78,10 @@
     reader.onload = function (evt) {
       file_out.innerHTML = evt.target.result;
     };
+  }
+  ////////////////////////////////
+  var raw_file = document.getElementById("raw_file");
+  function file_inspect() {
+    console.log(raw_file.value);
   }
 </script>
