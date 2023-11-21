@@ -16,20 +16,21 @@
 </body>
 
 <script language="javascript" type="text/javascript">
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker
+        .register("/ClientServerTesters/serviceWorker.js", {
+          scope: "/ClientServerTesters/",
+        })
+        .then((res) => console.log("service worker registered"))
+        .catch((err) => console.log("service worker not registered", err));
+    });
+  }
+
   var logsDiv = document.getElementById("logs");
 
   if (window.matchMedia("(display-mode: standalone)").matches) {
     log("This is running as a PWA.", logsDiv);
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker
-          .register("/ClientServerTesters/serviceWorker.js", {
-            scope: "/ClientServerTesters/",
-          })
-          .then((res) => console.log("service worker registered"))
-          .catch((err) => console.log("service worker not registered", err));
-      });
-    }
   } else {
     log("This is running as a website", logsDiv);
   }
