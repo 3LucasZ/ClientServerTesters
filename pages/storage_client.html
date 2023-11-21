@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Storage Client</title>
+  <link rel="canonical" href="https://3lucasz.github.io/ClientServerTesters/" />
+  <link rel="manifest" href="/ClientServerTesters/manifest.json" />
+  <link rel="apple-touch-icon" href="images/icons/icon-256x256.png" />
+  <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+  <meta name="theme-color" content="db4938" />
+</head>
+
+<body>
+  <h1>Storage Client</h1>
+  <div>
+    <input type="text" name="ls_in" id="ls_in" value="hello world" />
+    <button onclick="ls_post()">LS POST</button>
+    <p id="ls_out">Empty</p>
+    <button onclick="ls_get()">LS GET</button>
+  </div>
+</body>
+
+<script language="javascript" type="text/javascript">
+  var ls_in = document.getElementById("ls_in");
+  var ls_out = document.getElementById("ls_out");
+
+  function ls_post() {
+    localStorage.setItem("pkt", ls_in.value);
+  }
+  function ls_get() {
+    ls_out.innerHTML = localStorage.getItem("pkt");
+  }
+</script>
