@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<head>
+  <title>OPFS Client</title>
+  <link rel="canonical" href="https://3lucasz.github.io/ClientServerTesters/" />
+  <link rel="manifest" href="/ClientServerTesters/manifest.json" />
+  <link
+    rel="apple-touch-icon"
+    href="/ClientServerTesters/images/icons/icon-256x256.png"
+  />
+</head>
+
+<body>
+  <h1>OPFS Client</h1>
+  <div>
+    <li><a href="/ClientServerTesters/index.html">Index</a></li>
+    <li>
+      <a href="/ClientServerTesters/pages/websocket_client.html"
+        >Websocket Client</a
+      >
+    </li>
+    <li>
+      <a href="/ClientServerTesters/pages/storage_client.html"
+        >Storage Client</a
+      >
+    </li>
+    <li>
+      <a href="/ClientServerTesters/pages/opfs_client.html">OPFS Client</a>
+    </li>
+  </div>
+
+  <div>
+    <h3>OPFS</h3>
+    <input type="text" id="file_id" value="cool_file" />
+    <input type="text" id="file_in" value="hello opfs" />
+    <button onclick="create_file()">Create File</button>
+    <button onclick="inspect_opfs()">Inspect OPFS</button>
+    <p id="file3_out">Empty</p>
+  </div>
+</body>
+
+<script language="javascript" type="text/javascript">
+  var file3_in = document.getElementById("file3_in");
+  var file3_out = document.getElementById("file3_out");
+  var opfsRoot;
+  window.onload = (event) => {
+    onLoadHandler();
+  };
+  async function onLoadHandler() {
+    opfsRoot = await navigator.storage.getDirectory();
+  }
+
+  async function opfs_create() {
+    const fileHandle = await opfsRoot.getFileHandle(file3_in.value, {
+      create: true,
+    });
+  }
+  async function opfs_inspect() {
+    console.log(opfsRoot);
+    for await (let [name, handle] of opfsRoot) {
+      console.log(name);
+    }
+  }
+</script>
