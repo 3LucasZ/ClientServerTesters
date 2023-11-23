@@ -35,7 +35,8 @@
     <input type="text" id="file_in" value="hello opfs" />
     <button onclick="create_file()">Create File</button>
     <button onclick="inspect_opfs()">Inspect OPFS</button>
-    <p id="logs">Empty</p>
+    <h3>Logs:</h3>
+    <div id="logs"></div>
   </div>
 </body>
 
@@ -55,11 +56,25 @@
     const fileHandle = await opfsRoot.getFileHandle(file_id.value, {
       create: true,
     });
+    const fileStream = await fileHandle.createWritable();
+    fileStream.write(file_in.value);
+    fileStream.close();
   }
   async function inspect_opfs() {
-    console.log(opfsRoot);
+    _clear();
     for await (let [name, handle] of opfsRoot) {
-      console.log(name);
+      _log(name);
+      const file = await handle.getFile();
+      const read = await file.text();
+      _log("-> " + read);
     }
+  }
+  function _log(message) {
+    var pre = document.createElement("p");
+    pre.innerHTML = message;
+    logs.appendChild(pre);
+  }
+  function _clear() {
+    logs.innerHTML = "";
   }
 </script>
