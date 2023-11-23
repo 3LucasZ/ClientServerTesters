@@ -35,13 +35,14 @@
     <input type="text" id="file_in" value="hello opfs" />
     <button onclick="create_file()">Create File</button>
     <button onclick="inspect_opfs()">Inspect OPFS</button>
-    <p id="file3_out">Empty</p>
+    <p id="logs">Empty</p>
   </div>
 </body>
 
 <script language="javascript" type="text/javascript">
-  var file3_in = document.getElementById("file3_in");
-  var file3_out = document.getElementById("file3_out");
+  var file_id = document.getElementById("file_id");
+  var file_in = document.getElementById("file_in");
+  var logs = document.getElementById("logs");
   var opfsRoot;
   window.onload = (event) => {
     onLoadHandler();
@@ -50,12 +51,12 @@
     opfsRoot = await navigator.storage.getDirectory();
   }
 
-  async function opfs_create() {
-    const fileHandle = await opfsRoot.getFileHandle(file3_in.value, {
+  async function create_file() {
+    const fileHandle = await opfsRoot.getFileHandle(file_id.value, {
       create: true,
     });
   }
-  async function opfs_inspect() {
+  async function inspect_opfs() {
     console.log(opfsRoot);
     for await (let [name, handle] of opfsRoot) {
       console.log(name);
